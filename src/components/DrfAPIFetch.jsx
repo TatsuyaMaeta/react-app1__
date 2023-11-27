@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const api_url = import.meta.env.VITE_APP_URL;
+const api_token = import.meta.env.VITE_APP_TOKEN;
+
 const DrfAPIFetch = () => {
     const [tasks, setTasks] = useState([]);
     const [selectedTask, setSelectedTask] = useState([]);
@@ -9,10 +12,9 @@ const DrfAPIFetch = () => {
 
     useEffect(() => {
         axios
-            .get("http://127.0.0.1:8000/api/tasks/", {
+            .get(`${api_url}/api/tasks/`, {
                 headers: {
-                    Authorization:
-                        "Token z91de8e9bb7c1468329521ff108247fff31174b72",
+                    Authorization: `Token ${api_token}`,
                 },
             })
             .then((res) => {
@@ -23,10 +25,10 @@ const DrfAPIFetch = () => {
     // タスクを取得する関数
     const getTask = () => {
         axios
-            .get(`http://127.0.0.1:8000/api/tasks/${id}`, {
+            .get(`${api_url}/api/tasks/${id}`, {
                 headers: {
                     Authorization:
-                        "Token z91de8e9bb7c1468329521ff108247fff31174b72",
+                        "Token 91de8e9bb7c1468329521ff108247fff31174b72",
                 },
             })
             .then((res) => {
@@ -35,10 +37,10 @@ const DrfAPIFetch = () => {
     };
     const deleteTask = (id) => {
         axios
-            .delete(`http://127.0.0.1:8000/api/tasks/${id}`, {
+            .delete(`${api_url}/api/tasks/${id}`, {
                 headers: {
                     Authorization:
-                        "Token 9741e5fd90fe1b56de2c7399da63e3e0fddab003",
+                        "Token 91de8e9bb7c1468329521ff108247fff31174b72",
                 },
             })
             .then((res) => {
@@ -56,7 +58,7 @@ const DrfAPIFetch = () => {
         // 第二引数：setしたいobject
         // 第三引数：header情報のobject
         axios
-            .post(`http://127.0.0.1:8000/api/tasks/`, data, {
+            .post(`${api_url}/api/tasks/`, data, {
                 // postやputの場合、headerに追加情報が必要
                 headers: {
                     Authorization:
@@ -77,8 +79,9 @@ const DrfAPIFetch = () => {
         // 第一引数：URL
         // 第二引数：setしたいobject
         // 第三引数：header情報のobject
+        // `http://127.0.0.1:8000/api/tasks/${task.id}/`
         axios
-            .put(`http://127.0.0.1:8000/api/tasks/${task.id}/`, task, {
+            .put(`${api_url}/api/tasks/${task.id}`, task, {
                 // postやputの場合、headerに追加情報が必要
                 headers: {
                     "Content-Type": "application/json",
